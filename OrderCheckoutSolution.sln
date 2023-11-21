@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderCheckout.API", "OrderCheckout.API\OrderCheckout.API.csproj", "{A3019EF6-B9D7-40CF-A10D-2EDE4C85A2F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderCheckout.UnitTests", "OrderCheckout.UnitTests\OrderCheckout.UnitTests.csproj", "{91DFE590-74C2-4FD3-8257-A0A11B19BE3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3019EF6-B9D7-40CF-A10D-2EDE4C85A2F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3019EF6-B9D7-40CF-A10D-2EDE4C85A2F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3019EF6-B9D7-40CF-A10D-2EDE4C85A2F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3019EF6-B9D7-40CF-A10D-2EDE4C85A2F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91DFE590-74C2-4FD3-8257-A0A11B19BE3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91DFE590-74C2-4FD3-8257-A0A11B19BE3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91DFE590-74C2-4FD3-8257-A0A11B19BE3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91DFE590-74C2-4FD3-8257-A0A11B19BE3A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E66D83F-60DD-4CB3-8C28-0FF050111E6A}
+	EndGlobalSection
+EndGlobal
