@@ -42,6 +42,25 @@ namespace OrderCheckout.UnitTests.ServicesTests
 
             Assert.That(result, Is.EqualTo("Invalid Cart"));
         }
+        [Test]
+        public void ValideCart_WithInvalidProductQuantity_ReturnsInvalidQuantityMessage()
+        {
+            //Arrange
+            var order = new Order
+            {
+                Cartitems = new List<CartItem>
+                {
+                    new CartItem { Quantity = -5, Price = 20 } // Invalid quantity
+                },
+                Card = new Card(),
+                Address = new AdressInfo()
+            };
+
+            //Act
+            var result = _cartService.ValidateCart(order);
+            //Assert
+            Assert.That(result, Is.EqualTo("Invalid Product Quantity"));
+        }
 
     }
 }
