@@ -12,7 +12,7 @@ namespace OrderCheckout.API.Interfaces
         }
         public string ValidateCart(Order order)
         {
-            if (order.Cartitems.Count < 0)
+            if (order.Cartitems.Count <= 0)
                 return "Invalid Cart";
 
             if (order.Cartitems.Any(x => x.Quantity < 0 || x.Quantity > 10))

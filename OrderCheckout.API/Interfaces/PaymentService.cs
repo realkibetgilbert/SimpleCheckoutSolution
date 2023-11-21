@@ -12,24 +12,24 @@ namespace OrderCheckout.API.Interfaces
         }
         public string ChargeandShip(Order order)
         {
-            if (order.card.amount <= 0)
+            if (order.Card.amount <= 0)
             {
                 return "Amount is not valid";
             }
 
-            if (order.card != null)
+            if (order.Card != null)
             {
-                if (order.card.ValidTo < DateTime.Now)
+                if (order.Card.ValidTo < DateTime.Now)
                     return "Card Expired";
-                if (order.card.CardNumber.Length < 16)
+                if (order.Card.CardNumber.Length < 16)
                     return "Card Number is not valid";
             }
 
-            bool makePayment = MakePayment(order.card);
+            bool makePayment = MakePayment(order.Card);
 
             if (makePayment)
             {
-                var shipment = _shipmentService.Ship(order.adress);
+                var shipment = _shipmentService.Ship(order.Address);
 
                 if (shipment != null)
                     return "Item Shipped";

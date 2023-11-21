@@ -24,8 +24,8 @@
     }
     public class Order
     {
-        public Card card { get; set; }
-        public AdressInfo adress { get; set; }
+        public Card Card { get; set; }
+        public AdressInfo Address { get; set; }
         public List<CartItem> Cartitems { get; set; }
     }
 
