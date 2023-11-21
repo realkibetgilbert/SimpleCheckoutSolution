@@ -45,5 +45,27 @@ namespace OrderCheckout.UnitTests.ServicesTests
             Assert.That(result, Is.EqualTo("Amount is not valid"));
         }
 
+        [Test]
+        public void ChargeandShip_WithExpiredCard_ReturnsCardExpiredMessage()
+        {
+            // Arrange
+            var order = new Order
+            {
+                Card = new Card
+                {
+                    amount = 100,
+                    CardNumber = "1234567812345678",
+                    ValidTo = DateTime.Now.AddDays(-1) // Expired card
+                },
+                Address = new AdressInfo()
+            };
+
+            // Act
+            var result = _paymentService.ChargeandShip(order);
+
+            // Assert
+            Assert.That(result, Is.EqualTo("Card Expired"));
+        }
+
     }
 }
