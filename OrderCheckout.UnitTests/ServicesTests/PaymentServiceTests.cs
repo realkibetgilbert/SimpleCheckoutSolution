@@ -2,11 +2,6 @@
 using NUnit.Framework;
 using OrderCheckout.API.Interfaces;
 using OrderCheckout.API.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrderCheckout.UnitTests.ServicesTests
 {
@@ -63,9 +58,56 @@ namespace OrderCheckout.UnitTests.ServicesTests
             // Act
             var result = _paymentService.ChargeandShip(order);
 
+            const string EXPECTED = "Card Expired";
             // Assert
-            Assert.That(result, Is.EqualTo("Card Expired"));
+            Assert.That(result,Is.EqualTo(EXPECTED));
+        }
+        [Test]
+        public void ChargeandShip_WithInvalidCardNumber_ReturnsCardNumberNotValidMessage()
+        {
+            // Arrange
+            var order = new Order
+            {
+                Card = new Card
+                {
+                    amount = 100,
+                    CardNumber = "12934", // Invalid card number
+                    ValidTo = DateTime.Now.AddDays(30)
+                },
+                Address = new AdressInfo()
+            };
+
+            // Act
+            var result = _paymentService.ChargeandShip(order);
+
+            // Assert
+            Assert.That(result, Is.EqualTo("Card Number is not valid"));
         }
 
+        [Test]
+        public void ChargeandShip_WithFailedPayment_ReturnsPaymentFailedMessage()
+        {
+            // Arrange
+            var order = new Order
+            {
+                Card = new Card
+                {
+                    amount = 100,
+                    CardNumber = "1234567812345678",
+                    ValidTo = DateTime.Now.AddDays(30)
+                },
+                Address = new AdressInfo()
+            };
+
+            // Override the MakePayment method to return false (failed payment)
+            var paymentServiceWithFailedPayment = new PaymentService(_shipmentServiceMock.Object);
+
+            // Act
+            var result = paymentServiceWithFailedPayment.ChargeandShip(order);
+
+            // Assert
+            Assert.That(result,Is.EqualTo("Payment Failed"));
+        }
+       
     }
 }
