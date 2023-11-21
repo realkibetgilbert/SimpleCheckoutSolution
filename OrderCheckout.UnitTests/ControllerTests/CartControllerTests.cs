@@ -25,6 +25,7 @@ namespace OrderCheckout.UnitTests.ControllerTests
             var result = _cartController.CheckOut(null);
 
             //Assert
+     
             Assert.That(result, Is.EqualTo("Order is null"));
         }
     }
