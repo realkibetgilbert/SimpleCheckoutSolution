@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.AspNetCore.Cors.Infrastructure;
+using Moq;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using OrderCheckout.API.Interfaces;
@@ -62,5 +63,68 @@ namespace OrderCheckout.UnitTests.ServicesTests
             Assert.That(result, Is.EqualTo("Invalid Product Quantity"));
         }
 
+        public void ValideCart_WithInvalidProductQuantity_ReturnInvalidQuantityMessage()
+        {
+            // Arrange
+            var order = new Order
+            {
+                Cartitems = new List<CartItem>
+                {
+                    new CartItem { Quantity = 15, Price = 20 } // Quantity greater than 10
+                },
+                Card = new Card(),
+                Address = new AdressInfo()
+            };
+
+            // Act
+            var result = _cartService.ValidateCart(order);
+
+            // Assert
+            Assert.That(result, Is.EqualTo("Invalid Product Quantity"));
+
+        }
+
+        [Test]
+        public void ValidateCart_WithValidCart_CallsChargeAndShipMethod()
+        {
+            // Arrange
+            var order = new Order
+            {
+                Cartitems = new List<CartItem>
+                {
+                    new CartItem { Quantity = 5, Price = 20 }
+                }
+            };
+
+            // Act
+            var result = _cartService.ValidateCart(order);
+
+            // Assert
+            _paymentServiceMock.Verify(x => x.ChargeandShip(order), Times.Once);
+        }
+
+        [Test]
+        public void ValidateCart_WithPaymentServiceFailure_ReturnsPaymentServiceFailureMessage()
+        {
+            // Arrange
+            var order = new Order
+            {
+                Cartitems = new List<CartItem>
+                {
+                    new CartItem { Quantity = 5, Price = 20 }
+                },
+                Card = new Card(),
+                Address = new AdressInfo()
+            };
+
+            // Set up mock to simulate payment service failure
+            _paymentServiceMock.Setup(x => x.ChargeandShip(It.IsAny<Order>())).Returns("Payment Failed");
+
+            // Act and Assert
+            var result = _cartService.ValidateCart(order);
+
+            // Assert
+            Assert.That(result, Is.EqualTo("Payment Failed"));
+        }
     }
 }
